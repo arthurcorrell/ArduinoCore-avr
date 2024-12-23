@@ -32,7 +32,7 @@
 // that works even with problematic devices (like KVM switches).
 // Keep in mind that with this change you'll have to use the Arduino's
 // reset button to be able to flash it.
-//#define CDC_DISABLED
+#define CDC_DISABLED
 
 #ifndef CDC_DISABLED
 #define CDC_ENABLED
