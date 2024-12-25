@@ -31,6 +31,9 @@ volatile u8 RxLEDPulse; /**< Milliseconds remaining for data Rx LED pulse */
 //==================================================================
 //==================================================================
 
+#define USB_VID 0x258A
+#define USB_PID 0x2023
+
 extern const u16 STRING_LANGUAGE[] PROGMEM;
 extern const u8 STRING_PRODUCT[] PROGMEM;
 extern const u8 STRING_MANUFACTURER[] PROGMEM;
@@ -41,13 +44,16 @@ const u16 STRING_LANGUAGE[2] = {
 	0x0409	// English
 };
 
+// this block was commented 
 #ifndef USB_PRODUCT
 // If no product is provided, use USB IO Board
 #define USB_PRODUCT     "USB IO Board"
 #endif
 
+#define USB_PRODUCT "Glorious Model D"
 const u8 STRING_PRODUCT[] PROGMEM = USB_PRODUCT;
 
+// this block was also commented
 #if USB_VID == 0x2341
 #  if defined(USB_MANUFACTURER)
 #    undef USB_MANUFACTURER
@@ -63,8 +69,12 @@ const u8 STRING_PRODUCT[] PROGMEM = USB_PRODUCT;
 #  define USB_MANUFACTURER "Unknown"
 #endif
 
+#define USB_MANUFACTURER "PixArt"
 const u8 STRING_MANUFACTURER[] PROGMEM = USB_MANUFACTURER;
 
+// possibly not needed upon initialisation
+// #define SER_NUM "CH12128210102684"
+// const u8 SERIAL_NUMBER[] PROGMEM = SER_NUM;
 
 #define DEVICE_CLASS 0x02
 
@@ -541,6 +551,9 @@ bool SendDescriptor(USBSetup& setup)
 			return USB_SendStringDescriptor(STRING_MANUFACTURER, strlen(USB_MANUFACTURER), TRANSFER_PGM);
 		}
 		else if (setup.wValueL == ISERIAL) {
+			// potentially not needed upon initialisation
+			// return USB_SendStringDescriptor(SERIAL_NUMBER, strlen(SER_NUM), TRANSFER_PGM);
+// this block was also commented
 #ifdef PLUGGABLE_USB_ENABLED
 			char name[ISERIAL_MAX_LEN];
 			PluggableUSB().getShortName(name);
